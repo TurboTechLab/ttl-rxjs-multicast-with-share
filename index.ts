@@ -1,4 +1,4 @@
-import { interval, Subject } from 'rxjs';
+import { interval, timer, Subject } from 'rxjs';
 import { share, take, tap } from 'rxjs/operators';
 
 const source = interval(1000).pipe(
@@ -6,9 +6,14 @@ const source = interval(1000).pipe(
   tap((x) => console.log('Emits: ', x)),
 
   //Comment share to see the difference in the output
-  share({ connector: () => new Subject() })
+  share(),
+  //share({ resetOnRefCountZero: () => timer(1000) })
 );
 
 //Note : Mark the comma between subscriptions
-source.subscribe((v) => console.log('subscription 1: ', v)),
+setTimeout(
+  () => source.subscribe((v) => console.log('subscription 1: ', v)),
+  1500
+),
   source.subscribe((v) => console.log('subscription 2: ', v));
+//source.pipe(take(1)).subscribe((v) => console.log('subscription 3: ', v));

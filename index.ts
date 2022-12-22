@@ -16,4 +16,4 @@ setTimeout(
   1500
 ),
   source.subscribe((v) => console.log('subscription2: ', v));
-//source.pipe(take(1)).subscribe((v) => console.log('subscription 3: ', v));
+//source.pipe(take(1)).subscribe((v) => console.log('subscription3: ', v));
